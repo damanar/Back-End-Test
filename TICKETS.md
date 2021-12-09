@@ -8,7 +8,7 @@ When getting all orders filtered by a property, the orders are not being filtere
 For query params you will want to assume `filterProperty` is "name" and `filterValue` is "Additional Topping".
 
 ### Dev Notes / Response
-
+orders.js - Fixed filtering, was using nested .filter instead of .filter => .some
 
 ---
 
@@ -31,7 +31,7 @@ I calculated that the total should be $74.23 but I'm getting $51.28. Because tha
 All items ordered (and more) can be referenced in lib/orders.js
 
 ### Dev Notes / Response
-
+orders.js - price was being miscalculated by not taking into account quantities. adjusted and fixed.
 
 ---
 
@@ -43,8 +43,8 @@ When getting updating an order I expect to only have to pass what has changed. H
 Additionally, when updating the items ordered, the total is not updating.
 
 ### Dev Notes / Response
-
-
+orders.js - separated out PUT and Patch specifications. Added retotalling of price to both
+QA NOTE: Use PUT to update the entire dataset, Use PATCH to update partial data, customerName or items only.
 ---
 
 
@@ -53,9 +53,12 @@ Additionally, when updating the items ordered, the total is not updating.
 When  I delete an order, the order that gets deleted is never the one I expect. I know we recently changed how we are doing our deletes so I'm not sure everything got updated. But when I delete a specific order, that's usually not the one that gets deleted. Unless I delete it immediately.
 
 ### Dev Notes / Response
-
+orders.js - Not sure how this endpoint was working at all; there was an improper call to an undefined object. I have fixed the Delete endpoint and ensured it is working correctly.
 
 ---
 
 
 ## Other
+post method was using "total" instead of "price", like in the dataset, i updated the post function to use price to match.
+API DOCUMENTATION UPDATE:: Added Patch specification to allow for partial data updates.
+package.json - node no longer accepts capital letters in module names(https://github.com/npm/validate-npm-package-name/blob/main/index.js#L67), adjusted to be lowercase
